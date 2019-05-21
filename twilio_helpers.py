@@ -1,4 +1,4 @@
-from secrets import SID, AUTH, OWN_NUMBER
+from secrets import SID, AUTH
 from twilio.rest import Client
 
 POVERTY_STOPLIGHT_WHATSAPP_NUMBER = "whatsapp:+5521933007184"
