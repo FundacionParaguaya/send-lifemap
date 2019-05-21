@@ -23,5 +23,5 @@ import pdfkit
 
 pdfkit.from_url("https://www.povertystoplight.org/en/faq", "faq.pdf")
 
-pdfkit.from_fike("algo.html", "algo.pdf")
+pdfkit.from_file("algo.html", "algo.pdf")
 ```
