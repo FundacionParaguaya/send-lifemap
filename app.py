@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, request
 from connect_database import connect_mongo
+from twilio_helpers import send_template, send_messages
 app = Flask(__name__)
 
 @app.route('/')
@@ -8,3 +9,13 @@ def hello_world():
     family = db['family']
 
     return str(list(family.find()))
+
+@app.route('/send-inital-message', methods = ['POST'])
+def send_inital_message():
+    from_number = request.form['from']
+
+    return send_template(from_number)
+
+@app.route('/send-reminder', methods = ['POST'])
+def send_reminder():
+    return send_messages
