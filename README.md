@@ -11,13 +11,14 @@ pip install -r requirements.txt
 ```
 
 ## Other requirements
+* Create a `secrets.py` file (follow the example in `secrets.py.example`).
+  * The credentials can be found at https://www.twilio.com/console.
 
 * wkhtmltopdf:
   * Ubuntu: `sudo apt install wkhtmltopdf`
   * Win/Mac: https://wkhtmltopdf.org/downloads.html
 
 ## PDF creation 
-
 ```python
 import pdfkit
 
