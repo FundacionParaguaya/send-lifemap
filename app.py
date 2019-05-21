@@ -13,7 +13,7 @@ def hello_world():
     # lifemap_data = json.dumps(list(family.find()))
     # send_lifemap(lifemap_data)
     send_lifemap('data/snapshot_sample.json')
-    return render_template('lifemap.html')
+    return render_template('grafic.html')
 
     # return str(list(family.find()))
 
@@ -31,6 +31,6 @@ def send_reminder():
 def send_lifemap(data):
     # template = render_template('lifemap.html', json_data=data)
     # template = template.encode('utf-8')
-    return pdfkit.from_file('lifemap.html', "lifemap.pdf")
+    return pdfkit.from_file('templates/grafic.html', "lifemap.pdf")
 
     # deliver_via_whatsapp(lifemap)

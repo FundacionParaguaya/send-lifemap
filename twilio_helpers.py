@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from secrets import SID, AUTH
 from twilio.rest import Client
 
