@@ -105,6 +105,7 @@ venv.bak/
 
 #random files
 data/.DS_Store
+.DS_Store
 
 # Projects Files
 secrets.py
