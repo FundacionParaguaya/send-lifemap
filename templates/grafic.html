@@ -16,13 +16,6 @@
     <br>
 
     <script>
-      $(function(){
-        var data = $('table'),
-          json_data = JSON.parse(data.attr('data-dynamic'));
-      });
-    </script>
-
-    <script>
       var ctx = document.getElementById('myChart').getContext('2d');
       var chart = new Chart(ctx, {
           type: 'doughnut',
