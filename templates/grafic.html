@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Poverty Stoplight</title>
-</head>
-<body>
-<h1>Semáforo de Eliminación de la Pobreza</h1>
-<h3>Tu Mapa de Vida</h3>
-<div width="10" height="10">
-<canvas id="myChart" ></canvas>
-</div>
-<br>
-<script src="Chart.js/Chart.js"></script>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Poverty Stoplight</title>
+  </head>
 
-<script>
+  <body>
+    <h1>Semáforo de Eliminación de la Pobreza</h1>
+    <h3>Tu Mapa de Vida</h3>
+    <div width="10" height="10">
+      <canvas id="myChart" ></canvas>
+    </div>
+    <br>
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    type: 'doughnut',
-    data:{
-    datasets: [
-      {
-             data: [28,10,5,50,],
-             backgroundColor: [
-                                '#42a5f5', //skipped
-                                'red',
-                                'yellow',
-                                'green'
-                                ],
-            borderColor: "white",
-            borderWidth: 0.5,
-            label: 'Tu Mapa de Vida'
+    <script>
+      $(function(){
+        var data = $('table'),
+          json_data = JSON.parse(data.attr('data-dynamic'));
+      });
+    </script>
 
-           }
-         ],
-  
-    labels: ['No respondido','Rojo','Amarillo','Verde']
-        },
-options: {responsive: true},
-}
-);
+    <script src="Chart.js/Chart.js"></script>
 
-</script>
-</body>
+    <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'doughnut',
+        data:{
+        datasets: [
+          {
+                 data: [28,10,5,50,],
+                 backgroundColor: [
+                                    '#42a5f5', //skipped
+                                    'red',
+                                    'yellow',
+                                    'green'
+                                    ],
+                borderColor: "white",
+                borderWidth: 0.5,
+                label: 'Tu Mapa de Vida'
+
+               }
+             ],
+
+        labels: ['No respondido','Rojo','Amarillo','Verde']
+            },
+    options: {responsive: true},
+    }
+    );
+
+    </script>
+  </body>
 </html>
