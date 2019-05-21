@@ -1,4 +1,10 @@
-pdfkit==0.6.1
+Click==7.0
+configparser==3.7.4
 Flask==1.0.3
+itsdangerous==1.1.0
+Jinja2==2.10.1
+MarkupSafe==1.1.1
+pymongo==3.8.0
+Werkzeug==0.15.4
+pdfkit==0.6.1
 twilio==6.27.0
-
