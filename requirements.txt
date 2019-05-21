@@ -1,0 +1,4 @@
+pdfkit==0.6.1
+Flask==1.0.3
+twilio==6.27.0
+
