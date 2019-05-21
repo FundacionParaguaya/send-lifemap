@@ -10,12 +10,12 @@ def hello_world():
 
     return str(list(family.find()))
 
-@app.route('/send-inital-message', methods = ['POST'])
+@app.route('/send-initial-message', methods = ['POST'])
 def send_inital_message():
     from_number = request.form['from']
 
     return send_template(from_number)
 
-@app.route('/send-reminder', methods = ['POST'])
+@app.route('/send-reminders', methods = ['POST'])
 def send_reminder():
-    return send_messages
+    return send_messages()
