@@ -1,10 +1,5 @@
 from secrets import SID, AUTH, OWN_NUMBER
 from twilio.rest import Client
-import configparser
-
-config_file = "config/twilio.ini"
-parser = configparser.ConfigParser()
-parser.read(config_file)
 
 POVERTY_STOPLIGHT_WHATSAPP_NUMBER = "whatsapp:+5521933007184"
 TEST_NUMBERS = ['+16265887741', '+41786914152']
