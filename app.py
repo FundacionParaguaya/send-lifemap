@@ -24,6 +24,6 @@ def send_lifemap():
     lifemap = get_lifemap(phone_number)
     return lifemap
 
-@app.route('/render-template', methods['GET','POST'])
+@app.route('/render-template', methods=['GET','POST'])
 def render_graphic():
     return send_template("grafic.html")
