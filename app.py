@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from connect_database import connect_mongo
 from twilio_helpers import send_template, send_messages
 app = Flask(__name__)
@@ -14,8 +14,8 @@ def hello_world():
 def send_inital_message():
     from_number = request.form['from']
 
-    return send_template(from_number)
+    return jsonify(send_template(from_number))
 
 @app.route('/send-reminders', methods = ['POST'])
 def send_reminder():
-    return send_messages()
+    return jsonify(send_messages())

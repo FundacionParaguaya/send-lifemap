@@ -19,6 +19,8 @@ def send_messages():
 
         print(f"{number}, {message.sid}")
 
+    return
+
 def send_template(whatsapp_number):
     message = client.messages.create(
         from_=POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
@@ -27,3 +29,5 @@ def send_template(whatsapp_number):
     )
 
     print(f"{whatsapp_number}, {message.sid}")
+
+    return
