@@ -51,6 +51,7 @@ def send_messages(indicator, formMessage):
 def twilio_send_template(whatsapp_number):
     message = client.messages.create(
         from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
+        media_url = EMPANADA_IMG,
         body = "Hola, esto es Semáforo de eliminación de pobreza. ¿Te gustaría recibir tu mapa de vida?",
         to = "whatsapp:" + whatsapp_number,
     )
