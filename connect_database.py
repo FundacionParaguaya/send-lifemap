@@ -23,4 +23,4 @@ def get_lifemap(phone_number):
             # ** saves the pdf generated file in blob to save it in the db 
             familyCol.update_one({'phoneNumber': phone_number},{'$set': {'lifeMap' : 'pdf'}}) 
     else:
-        return "The famiy is not in the database" #the function sends a message that the number is not in the database and should be checked
+        return "The family is not in the database" #the function sends a message that the number is not in the database and should be checked
