@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Poverty Stoplight</title>
+    <script>
+        window.onload = function () {
+        
+        var chart = new CanvasJS.Chart("chartContainer", {
+          animationEnabled: true,
+          title:{
+            text: "{{lifemap["familyName"]}}: Tu Mapa de Vida",
+            horizontalAlign: "left"
+          },
+          data: [{
+            type: "doughnut",
+            startAngle: 60,
+            //innerRadius: 60,
+            indexLabelFontSize: 17,
+            indexLabel: "{label} - #percent%",
+            toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+            dataPoints: [
+              { y: {{ semaforo[3.0] }}, label: "Verde", color: "green" },
+              { y: {{ semaforo[2.0] }}, label: "Amarillo", color: "yellow" },
+              { y: {{ semaforo[1.0] }}, label: "Rojo", color: "red" },
+            ]
+          }]
+        });
+        chart.render();
+        
+        }
+     </script>
+  </head>
+
+  <body>
+    <h1>Semáforo de Eliminación de la Pobreza</h1>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>  
+  </body>
+</html>
