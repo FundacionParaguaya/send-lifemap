@@ -37,7 +37,7 @@ def send_messages(indicator, message):
             message = client.messages.create(
                 from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
                 media_url = EMPANADA_IMG,
-                body = "You recevied this message because you have a red " + indicator + " \n" + message,
+                body = "You recevied this message because you have a red " + str(indicator) + " \n" + str(message),
                 to = "whatsapp:" + number,
             )
             print(message)
