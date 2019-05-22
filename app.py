@@ -13,7 +13,10 @@ def hello_world():
     # exclude _id Mongo's ObjectID field for correct jsonification
     query = list(family.find({}, {"_id": 0}))
     return jsonify(query)
-
+    
+@app.route("/message-form")
+def message_form():
+    return render_template("message-form.html")
 
 @app.route("/send-initial-message", methods=["POST"])
 def send_inital_message():
