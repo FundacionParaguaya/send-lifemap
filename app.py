@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template, send_file, Response
 from connect_database import connect_mongo, get_lifemap
-from twilio_helpers import send_template, send_messages
+from twilio_helpers import twilio_send_template, send_messages
 import pdfkit
 
 app = Flask(__name__)
@@ -35,16 +35,19 @@ def send_reminder():
 
 @app.route("/send-lifemap", methods=["GET", "POST"])
 def send_lifemap():
-    phone_number = "+41786914152"
+    from_number = request.form["from"]
 
     # Save the number to our database
     db = connect_mongo()
     numbers = db["numbers"]
     numbers.insert({"number":phone_number})
 
-    lifemap = get_lifemap(phone_number)
-    print(lifemap)
-    return send_file(lifemap)
+    twilio_send_template(from_number)
+
+    # lifemap = get_lifemap(phone_number)
+    # print(lifemap)
+    # return send_file(lifemap)
+    return "lifemap sent!"
 
 
 @app.route("/render-template", methods=["GET", "POST"])
