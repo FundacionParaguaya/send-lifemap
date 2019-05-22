@@ -26,7 +26,11 @@ def send_inital_message():
 
 @app.route("/send-reminders", methods=["POST"])
 def send_reminder():
-    return jsonify(send_messages())
+    indicator = request.form['indicator']
+    message = request.form['message']
+    print(indicator, message)
+    send_messages(indicator, message)
+    return "message sent successfuly"
 
 
 @app.route("/send-lifemap", methods=["GET", "POST"])

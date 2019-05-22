@@ -22,12 +22,12 @@ EMPANADA_IMG = "https://capitalcommentary.org/wp-content/uploads/2018/01/America
 client = Client(SID, AUTH)
 
 # assuming that the whatsapp window is open
-def send_messages():
+def send_messages(indicator, message):
     for number in TEST_NUMBERS:
         message = client.messages.create(
             from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
             media_url = EMPANADA_IMG,
-            body = "Lunch is ready!",
+            body = "You recevied this message because you have a red " + indicator + " \n" + message,
             to = "whatsapp:" + number,
         )
 
