@@ -1,10 +1,5 @@
 import os
-import configparser
 import pymongo
-
-config_file = "config/db.ini"
-parser = configparser.ConfigParser()
-parser.read(config_file)
 
 def connect_mongo():
     MONGO_URI = os.getenv('MONGO_URI')
