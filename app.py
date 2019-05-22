@@ -25,13 +25,12 @@ def send_reminder():
     return jsonify(send_messages())
 
 
-@app.route("/send-lifemap1", methods=["GET", "POST"])
+@app.route("/send-lifemap", methods=["GET", "POST"])
 def send_lifemap():
     phone_number = "+595 000 000 000"
     lifemap = get_lifemap(phone_number)
     print(lifemap)
-    return jsonify("success")
-    # return send_file(lifemap, mimetype="application/pdf")
+    return send_file(lifemap, mimetype="application/pdf")
 
 
 @app.route("/render-template", methods=["GET", "POST"])
