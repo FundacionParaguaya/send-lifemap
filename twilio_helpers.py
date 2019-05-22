@@ -53,7 +53,7 @@ def send_pdf(whatsapp_number):
     #pdfnetor(whatsapp_number)
     message = client.messages.create(
         from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
-        media_url = f"{URL}{number}.pdf",
+        media_url = f"{URL}{whatsapp_number}.pdf",
         body = "Hola! Este es tu Mapa de vida",
         to = "whatsapp:" + whatsapp_number,
     )
