@@ -2,7 +2,6 @@
 # from secrets import SID, AUTH
 import os
 from twilio.rest import Client
-from app import pdfnetor
 
 SID = os.getenv("SID")
 AUTH = os.getenv("AUTH")
@@ -51,7 +50,7 @@ def send_template(whatsapp_number):
     return
 
 def send_pdf(whatsapp_number):
-    pdfnetor(whatsapp_number)
+    #pdfnetor(whatsapp_number)
     message = client.messages.create(
         from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
         media_url = f"{URL}{number}.pdf",
