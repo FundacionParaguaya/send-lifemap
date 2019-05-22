@@ -13,7 +13,10 @@ def hello_world():
     # exclude _id Mongo's ObjectID field for correct jsonification
     query = list(family.find({}, {"_id": 0}))
     return jsonify(query)
-
+    
+@app.route("/message-form")
+def message_form():
+    return render_template("message-form.html")
 
 @app.route("/send-initial-message", methods=["POST"])
 def send_inital_message():
@@ -23,12 +26,22 @@ def send_inital_message():
 
 @app.route("/send-reminders", methods=["POST"])
 def send_reminder():
-    return jsonify(send_messages())
+    indicator = request.form['indicator']
+    message = request.form['message']
+    print(indicator, message)
+    send_messages(indicator, message)
+    return render_template("message-success.html")
 
 
 @app.route("/send-lifemap", methods=["GET", "POST"])
 def send_lifemap():
-    phone_number = "+595 000 000 000"
+    phone_number = "+41786914152"
+
+    # Save the number to our database
+    db = connect_mongo()
+    numbers = db["numbers"]
+    numbers.insert({"number":phone_number})
+
     lifemap = get_lifemap(phone_number)
     print(lifemap)
     return send_file(lifemap)

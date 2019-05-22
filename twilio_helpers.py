@@ -2,6 +2,7 @@
 # from secrets import SID, AUTH
 import os
 from twilio.rest import Client
+from connect_database import connect_mongo
 
 SID = os.getenv("SID")
 AUTH = os.getenv("AUTH")
@@ -22,16 +23,28 @@ EMPANADA_IMG = "https://capitalcommentary.org/wp-content/uploads/2018/01/America
 client = Client(SID, AUTH)
 
 # assuming that the whatsapp window is open
-def send_messages():
-    for number in TEST_NUMBERS:
-        message = client.messages.create(
-            from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
-            media_url = EMPANADA_IMG,
-            body = "Lunch is ready!",
-            to = "whatsapp:" + number,
-        )
+def send_messages(indicator, message):
+    db = connect_mongo()
+    numbers = db["numbers"] # collection should only contain a list objects, with nmuber filed
+    # exclude _id Mongo's ObjectID field for correct jsonification
+    submitted_numbers = list(numbers.distinct("number"))
+    print(submitted_numbers)
+    for number in submitted_numbers:
+    # for numberObj in TEST_NUMBERS:
+        number=str(number)
+        print(number)
+        try:
+            message = client.messages.create(
+                from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
+                media_url = EMPANADA_IMG,
+                body = "You recevied this message because you have a red " + str(indicator) + " \n" + str(message),
+                to = "whatsapp:" + number,
+            )
+            print(message)
 
-        print("{}, {}".format(number, message.sid))
+        except Exception as e:
+            print(e)
+            print("phone probably not existent")
 
     return
 
