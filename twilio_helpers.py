@@ -23,7 +23,7 @@ EMPANADA_IMG = "https://capitalcommentary.org/wp-content/uploads/2018/01/America
 client = Client(SID, AUTH)
 
 # assuming that the whatsapp window is open
-def send_messages(indicator, message):
+def send_messages(indicator, formMessage):
     db = connect_mongo()
     numbers = db["numbers"] # collection should only contain a list objects, with nmuber filed
     # exclude _id Mongo's ObjectID field for correct jsonification
@@ -37,15 +37,15 @@ def send_messages(indicator, message):
             message = client.messages.create(
                 from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
                 media_url = EMPANADA_IMG,
-                body = "You recevied this message because you have a red " + str(indicator) + " \n" + str(message),
+                body = "You recevied this message because you have a red " + str(indicator) + " \n" + str(formMessage),
                 to = "whatsapp:" + number,
             )
-            print(message)
 
         except Exception as e:
             print(e)
             print("phone probably not existent")
-
+        finally:
+            print(number, message.sid)
     return
 
 def send_template(whatsapp_number):
