@@ -7,8 +7,8 @@ parser = configparser.ConfigParser()
 parser.read(config_file)
 
 def connect_mongo():
-    MONGO_URI = os.environ('MONGO_URI')
-    DB_NAME = os.environ('DB_NAME')
+    MONGO_URI = os.getenv('MONGO_URI')
+    DB_NAME = os.getenv('DB_NAME')
     mongo_client = pymongo.MongoClient(MONGO_URI)
     db = mongo_client[str(DB_NAME)]
     return db

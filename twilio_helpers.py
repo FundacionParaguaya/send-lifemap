@@ -2,8 +2,8 @@
 import os
 from twilio.rest import Client
 
-SID = os.environ("SID")
-AUTH = os.environ("AUTH")
+SID = os.getenv("SID")
+AUTH = os.getenv("AUTH")
 
 POVERTY_STOPLIGHT_WHATSAPP_NUMBER = "whatsapp:+5521933007184"
 TEST_NUMBERS = ["+16265887741", "+41786914152"]
