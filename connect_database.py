@@ -1,3 +1,4 @@
+import os
 import configparser
 import pymongo
 
@@ -6,12 +7,10 @@ parser = configparser.ConfigParser()
 parser.read(config_file)
 
 def connect_mongo():
-    mongodb_dbname = parser.get('povstop','dbname')
-    mongodb_user = parser.get('povstop','dbuser')
-    mongodb_dbpass = parser.get('povstop', 'dbpass')
-    mongodb_host = parser.get('povstop', 'dbhost')
-    mongo_client = pymongo.MongoClient('mongodb+srv://'+ str(mongodb_user) +':' + str(mongodb_dbpass) + '@'+ str(mongodb_host)+'/' +str(mongodb_dbname)+'?retryWrites=true')
-    db = mongo_client[str(mongodb_dbname)]
+    MONGO_URI = os.getenv('MONGO_URI')
+    DB_NAME = os.getenv('DB_NAME')
+    mongo_client = pymongo.MongoClient(MONGO_URI)
+    db = mongo_client[str(DB_NAME)]
     return db
 
 
