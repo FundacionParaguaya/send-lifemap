@@ -35,7 +35,7 @@ def send_reminder():
 
 @app.route("/send-lifemap", methods=["GET", "POST"])
 def send_lifemap():
-    phone_number = "+595 000 000 000"
+    phone_number = "+41786914152"
 
     # Save the number to our database
     db = connect_mongo()
