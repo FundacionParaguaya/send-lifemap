@@ -28,4 +28,7 @@ def send_lifemap():
 
 @app.route('/render-template', methods=['GET','POST'])
 def render_graphic():
-    return send_template("grafic.html")
+    return render_template("grafic.html")
+
+if __name__ == '__main__':
+    app.run()
