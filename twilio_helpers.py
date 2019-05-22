@@ -1,7 +1,10 @@
-# coding=utf-8
 
-from secrets import SID, AUTH
+# from secrets import SID, AUTH
+import os
 from twilio.rest import Client
+
+SID = os.getenv("SID")
+AUTH = os.getenv("AUTH")
 
 POVERTY_STOPLIGHT_WHATSAPP_NUMBER = "whatsapp:+5521933007184"
 TEST_NUMBERS = ["+16265887741", "+41786914152"]

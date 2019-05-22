@@ -1,12 +1,19 @@
+<<<<<<< render-image
 from flask import Flask, request, jsonify, render_template, send_file
 from connect_database import connect_mongo
 # from twilio_helpers import send_template, send_messages
+=======
+from flask import Flask, request, jsonify, render_template
+from connect_database import connect_mongo, get_lifemap
+from twilio_helpers import send_template, send_messages
+>>>>>>> master
 import pdfkit
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
+<<<<<<< render-image
     # db = connect_mongo()
     # family = db['family']
     # lifemap_data = json.dumps(list(family.find()))
@@ -14,17 +21,24 @@ def hello_world():
     send_lifemap('data/snapshot_sample.json')
     return render_template('grafic.html')
     # return str(list(family.find()))
+=======
+    db = connect_mongo()
+    family = db['family']
+    return str(list(family.find()))
+>>>>>>> master
+
+    # return str(list(family.find()))
 
 @app.route('/send-initial-message', methods = ['POST'])
 def send_inital_message():
     from_number = request.form['from']
-
     return jsonify(send_template(from_number))
 
 @app.route('/send-reminders', methods = ['POST'])
 def send_reminder():
     return jsonify(send_messages())
 
+<<<<<<< render-image
 @app.route('/send-lifemap', methods = ['GET'])
 def send_lifemap():
     # template = render_template('lifemap.html', json_data=data)
@@ -47,3 +61,14 @@ def display_graphic():
 # pdf.close()
 # os.remove("out.pdf")  # remove the locally created pdf file.
 # return response  # returns the response.
+=======
+@app.route('/send-lifemap', methods=['GET','POST'])
+def send_lifemap():
+    phone_number = '+595000000'
+    lifemap = get_lifemap(phone_number)
+    return lifemap
+
+@app.route('/render-template', methods=['GET','POST'])
+def render_graphic():
+    return render_template("grafic.html")
+>>>>>>> master
