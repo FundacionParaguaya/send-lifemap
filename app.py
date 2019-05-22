@@ -36,6 +36,7 @@ def send_reminder():
 @app.route("/send-lifemap", methods=["GET", "POST"])
 def send_lifemap():
     from_number = request.form["from"]
+    print(from_number)
 
     # Save the number to our database
     db = connect_mongo()
