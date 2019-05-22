@@ -24,6 +24,7 @@ pymongo==3.8.0
 Pyphen==0.9.5
 PySocks==1.7.0
 python-dotenv==0.10.2
+python-pdf==0.36
 pytz==2019.1
 requests==2.22.0
 six==1.12.0
