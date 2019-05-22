@@ -33,17 +33,17 @@ def send_reminder():
     return render_template("message-success.html")
 
 
-@app.route("/send-lifemap", methods=["GET", "POST"])
+@app.route("/send-lifemap", methods=["POST"])
 def send_lifemap():
-    from_number = request.form["from"]
-    print(from_number)
+    phone_number = request.form["from"]
+    print(phone_number)
 
     # Save the number to our database
     db = connect_mongo()
     numbers = db["numbers"]
     numbers.insert({"number":phone_number})
 
-    twilio_send_template(from_number)
+    twilio_send_template(phone_number)
 
     # lifemap = get_lifemap(phone_number)
     # print(lifemap)
