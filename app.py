@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template, send_file, Response
 from connect_database import connect_mongo, get_lifemap
 from twilio_helpers import send_template, send_messages
+import pdfkit
 
 app = Flask(__name__)
 
@@ -49,6 +50,16 @@ def number_graphic(number):
             values[key]=sum(value == key for value in lifemap.values())
 
     return render_template("chart_values.html", semaforo=values)
+
+@app.route("/generate-pdf/<string:number>")
+def pdfnetor(number):
+    pdf = pdfkit.from_url(
+        f"http://localhost:5000/render-template/{number}", 
+        f"{number}.pdf", 
+        options={"javascript-delay":2000})
+    print(pdf,"!!!!!!!!!!!!")
+    return send_file(f"{number}.pdf")
+    #return jsonify(pdf)
 
 if __name__ == "__main__":
     app.run(debug=True)
