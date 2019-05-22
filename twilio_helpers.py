@@ -16,7 +16,7 @@ if not SID or not AUTH:
     )
 
 POVERTY_STOPLIGHT_WHATSAPP_NUMBER = "whatsapp:+5521933007184"
-TEST_NUMBERS = ["+16265887741", "+41786914152"]
+TEST_NUMBERS = ["+595981583725"]#,"+16265887741", "+41786914152"]
 EMPANADA_IMG = "https://capitalcommentary.org/wp-content/uploads/2018/01/America%E2%80%99s-Iconic-Food-Items.jpg"
 
 client = Client(SID, AUTH)
