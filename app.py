@@ -37,6 +37,18 @@ def send_lifemap():
 def render_graphic():
     return render_template("grafic.html")
 
+@app.route("/render-template/<string:number>", methods=["GET", "POST"])
+def number_graphic(number):
+    print(number)
+    values = {}
+    db = connect_mongo()
+    lifemap = db.family.find_one({"phoneNumber":number})
+    if lifemap:
+        for v in range(1,4):
+            key = float(v)
+            values[key]=sum(value == key for value in lifemap.values())
+
+    return render_template("chart_values.html", semaforo=values)
 
 if __name__ == "__main__":
     app.run(debug=True)
