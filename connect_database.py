@@ -2,6 +2,8 @@ import os
 import pymongo
 import pdfkit
 
+BASE_URL = os.getenv("BASE_URL")
+
 def connect_mongo():
     MONGO_URI = os.getenv('MONGO_URI')
     DB_NAME = os.getenv('DB_NAME')
@@ -11,7 +13,7 @@ def connect_mongo():
 
 def generate_pdf(family):
     filename = "out4.py"
-    pdfkit.from_url("http://127.0.0.1:5000/render-template", filename, options={"javascript-delay":2000})
+    pdfkit.from_url(BASE_URL+"/render-template", filename, options={"javascript-delay":2000})
     return filename
 
 def get_lifemap(phone_number):
