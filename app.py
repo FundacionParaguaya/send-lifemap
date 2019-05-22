@@ -30,12 +30,18 @@ def send_reminder():
     message = request.form['message']
     print(indicator, message)
     send_messages(indicator, message)
-    return "message sent successfuly"
+    return render_template("message-success.html")
 
 
 @app.route("/send-lifemap", methods=["GET", "POST"])
 def send_lifemap():
     phone_number = "+595 000 000 000"
+
+    # Save the number to our database
+    db = connect_mongo()
+    numbers = db["numbers"]
+    numbers.insert({"number":phone_number})
+
     lifemap = get_lifemap(phone_number)
     print(lifemap)
     return send_file(lifemap)

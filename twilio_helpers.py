@@ -2,6 +2,7 @@
 # from secrets import SID, AUTH
 import os
 from twilio.rest import Client
+from connect_database import connect_mongo
 
 SID = os.getenv("SID")
 AUTH = os.getenv("AUTH")
@@ -23,12 +24,18 @@ client = Client(SID, AUTH)
 
 # assuming that the whatsapp window is open
 def send_messages(indicator, message):
-    for number in TEST_NUMBERS:
+    db = connect_mongo()
+    numbers = db["numbers"] # collection should only contain a list objects, with nmuber filed
+    # exclude _id Mongo's ObjectID field for correct jsonification
+    submitted_numbers = list(numbers.find())
+
+    # for numberObj in submitted_numbers:
+    for numberObj in TEST_NUMBERS:
         message = client.messages.create(
             from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
             media_url = EMPANADA_IMG,
             body = "You recevied this message because you have a red " + indicator + " \n" + message,
-            to = "whatsapp:" + number,
+            to = "whatsapp:" + numberObj['number'],
         )
 
         print("{}, {}".format(number, message.sid))
