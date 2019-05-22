@@ -21,7 +21,7 @@ def send_messages():
             to = "whatsapp:" + number,
         )
 
-        print(f"{number}, {message.sid}")
+        print("{}, {}".format(number, message.sid))
 
     return
 
@@ -32,6 +32,6 @@ def send_template(whatsapp_number):
         to = "whatsapp:" + whatsapp_number,
     )
 
-    print(f"{whatsapp_number}, {message.sid}")
+    print("{}, {}".format(whatsapp_number, message.sid))
 
     return
