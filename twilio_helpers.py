@@ -6,6 +6,15 @@ from twilio.rest import Client
 SID = os.getenv("SID")
 AUTH = os.getenv("AUTH")
 
+if not SID or not AUTH:
+    raise Exception(
+        """SID or AUTH environmental variables are not configured
+        configure an .env file or execute
+        export SID="<SIDinfo>"
+        export AUTH="<AUTHinfo>"
+        Get this info from https://www.twilio.com/console"""
+    )
+
 POVERTY_STOPLIGHT_WHATSAPP_NUMBER = "whatsapp:+5521933007184"
 TEST_NUMBERS = ["+16265887741", "+41786914152"]
 EMPANADA_IMG = "https://capitalcommentary.org/wp-content/uploads/2018/01/America%E2%80%99s-Iconic-Food-Items.jpg"
