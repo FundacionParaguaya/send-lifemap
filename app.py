@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from connect_database import connect_mongo, get_lifemap
 from twilio_helpers import send_template, send_messages
 app = Flask(__name__)
@@ -26,4 +26,4 @@ def send_lifemap():
 
 @app.route('/render-template', methods=['GET','POST'])
 def render_graphic():
-    return send_template("grafic.html")
+    return render_template("grafic.html")
