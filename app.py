@@ -49,7 +49,7 @@ def number_graphic(number):
             key = float(v)
             values[key]=sum(value == key for value in lifemap.values())
 
-    return render_template("chart_values.html", semaforo=values)
+    return render_template("chart_values.html", semaforo=values, lifemap=lifemap)
 
 @app.route("/generate-pdf/<string:number>")
 def pdfnetor(number):
