@@ -44,9 +44,6 @@ def send_lifemap():
     numbers.insert({"number":phone_number})
 
     twilio_send_template(phone_number)
-    # lifemap = get_lifemap(phone_number)
-    # print(lifemap)
-    # return send_file(lifemap)
     return "lifemap sent!"
 
 
