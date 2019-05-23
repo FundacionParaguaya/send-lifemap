@@ -23,7 +23,7 @@ LIFEMAP_IMG = "https://bisque-cassowary-8423.twil.io/assets/lifemap-final.jpg"
 client = Client(SID, AUTH)
 
 # assuming that the whatsapp window is open
-def send_messages(indicator, formMessage):
+def send_messages(indicator, form_message):
     db = connect_mongo()
     numbers = db["numbers"] # collection should only contain a list objects, with nmuber filed
     # exclude _id Mongo's ObjectID field for correct jsonification
@@ -37,7 +37,7 @@ def send_messages(indicator, formMessage):
             message = client.messages.create(
                 from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
                 media_url = EMPANADA_IMG,
-                body = "You recevied this message because you have a red " + str(indicator) + " \n" + str(formMessage),
+                body = "You recevied this message because you have a red " + str(indicator) + " \n" + str(form_message),
                 to = "whatsapp:" + number,
             )
 
