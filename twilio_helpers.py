@@ -19,11 +19,11 @@ if not SID or not AUTH:
 POVERTY_STOPLIGHT_WHATSAPP_NUMBER = "whatsapp:+5521933007184"
 TEST_NUMBERS = ["+595981583725"]#,"+16265887741", "+41786914152"]
 EMPANADA_IMG = "https://capitalcommentary.org/wp-content/uploads/2018/01/America%E2%80%99s-Iconic-Food-Items.jpg"
-
+LIFEMAP_IMG = "https://bisque-cassowary-8423.twil.io/assets/lifemap-final.jpg"
 client = Client(SID, AUTH)
 
 # assuming that the whatsapp window is open
-def send_messages(indicator, formMessage):
+def send_messages(indicator, form_message):
     db = connect_mongo()
     numbers = db["numbers"] # collection should only contain a list objects, with nmuber filed
     # exclude _id Mongo's ObjectID field for correct jsonification
@@ -37,7 +37,7 @@ def send_messages(indicator, formMessage):
             message = client.messages.create(
                 from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
                 media_url = EMPANADA_IMG,
-                body = "You recevied this message because you have a red " + str(indicator) + " \n" + str(formMessage),
+                body = "You recevied this message because you have a red " + str(indicator) + " \n" + str(form_message),
                 to = "whatsapp:" + number,
             )
 
@@ -48,10 +48,11 @@ def send_messages(indicator, formMessage):
             print(number, message.sid)
     return
 
-def send_template(whatsapp_number):
+def twilio_send_template(whatsapp_number):
     message = client.messages.create(
         from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
-        body = "Hola, esto es Semáforo de eliminación de pobreza. ¿Te gustaría recibir tu mapa de vida?",
+        media_url = LIFEMAP_IMG,
+        body = "Hello, this is Poverty Stoplight. Here is your lifemap.",
         to = "whatsapp:" + whatsapp_number,
     )
 
