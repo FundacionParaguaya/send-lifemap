@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify, render_template, send_file, Response
-from connect_database import connect_mongo, get_lifemap
-from twilio_helpers import send_template, send_messages
+from connect_database import connect_mongo, get_lifemap, save_number
+from twilio_helpers import send_template, send_messages, send_pdf
 import pdfkit
 
+PDF_DIR="./static/pdf/"
 app = Flask(__name__)
 
 
@@ -13,7 +14,7 @@ def hello_world():
     # exclude _id Mongo's ObjectID field for correct jsonification
     query = list(family.find({}, {"_id": 0}))
     return jsonify(query)
-    
+
 @app.route("/message-form")
 def message_form():
     return render_template("message-form.html")
@@ -35,16 +36,11 @@ def send_reminder():
 
 @app.route("/send-lifemap", methods=["GET", "POST"])
 def send_lifemap():
-    phone_number = "+41786914152"
-
-    # Save the number to our database
-    db = connect_mongo()
-    numbers = db["numbers"]
-    numbers.insert({"number":phone_number})
-
-    lifemap = get_lifemap(phone_number)
-    print(lifemap)
-    return send_file(lifemap)
+    phone_number = request.form['From']
+    save_number(phone_number=)
+    
+    lifemap = send_pdf(phone_number)
+    return jsonify("pdf successfully sent")
 
 
 @app.route("/render-template", methods=["GET", "POST"])
@@ -67,11 +63,11 @@ def number_graphic(number):
 @app.route("/generate-pdf/<string:number>")
 def pdfnetor(number):
     pdf = pdfkit.from_url(
-        f"http://localhost:5000/render-template/{number}", 
-        f"{number}.pdf", 
+        f"http://localhost:5000/render-template/{number}",
+        f"{PDF_DIR}{number}.pdf",
         options={"javascript-delay":2000})
     print(pdf,"!!!!!!!!!!!!")
-    return send_file(f"{number}.pdf")
+    return send_file(f"{PDF_DIR}{number}.pdf")
     #return jsonify(pdf)
 
 if __name__ == "__main__":

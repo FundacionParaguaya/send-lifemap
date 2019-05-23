@@ -3,9 +3,13 @@
 import os
 from twilio.rest import Client
 from connect_database import connect_mongo
+from app import pdfnetor
 
 SID = os.getenv("SID")
 AUTH = os.getenv("AUTH")
+LOCAL = "http://localhost:5000/"
+PROD = "http://send-lifemap.povertystoplight.org:5000/"
+URL = f"{PROD}static/pdf/"
 
 if not SID or not AUTH:
     raise Exception(
@@ -52,6 +56,19 @@ def send_template(whatsapp_number):
     message = client.messages.create(
         from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
         body = "Hola, esto es Semáforo de eliminación de pobreza. ¿Te gustaría recibir tu mapa de vida?",
+        to = "whatsapp:" + whatsapp_number,
+    )
+
+    print("{}, {}".format(whatsapp_number, message.sid))
+
+    return
+
+def send_pdf(whatsapp_number):
+    pdfnetor(whatsapp_number)
+    message = client.messages.create(
+        from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
+        media_url = f"{URL}{number}.pdf",
+        body = "Hola! Este es tu Mapa de vida",
         to = "whatsapp:" + whatsapp_number,
     )
 
