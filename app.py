@@ -1,5 +1,9 @@
 from flask import Flask, request, jsonify, render_template, send_file, Response
+<<<<<<< HEAD
 from connect_database import connect_mongo, get_lifemap, save_number
+=======
+from connect_database import connect_mongo, get_lifemap
+>>>>>>> 875930c094b35a9592a1891617913ed5bda6493f
 from twilio_helpers import send_template, send_messages, send_pdf
 import pdfkit
 
@@ -38,7 +42,7 @@ def send_reminder():
 def send_lifemap():
     phone_number = request.form['From']
     save_number(phone_number=)
-    
+
     lifemap = send_pdf(phone_number)
     return jsonify("pdf successfully sent")
 
