@@ -24,7 +24,6 @@ def send_inital_message():
     from_number = request.form["from"]
     return jsonify(send_template(from_number))
 
-
 @app.route("/send-reminders", methods=["POST"])
 def send_reminder():
     indicator = request.form['indicator']
@@ -33,15 +32,13 @@ def send_reminder():
     send_messages(indicator, message)
     return render_template("message-success.html")
 
-
 @app.route("/send-lifemap", methods=["GET", "POST"])
 def send_lifemap():
     phone_number = request.form['From']
-    save_number(phone_number=)
+    save_number(phone_number)
 
     lifemap = send_pdf(phone_number)
     return jsonify("pdf successfully sent")
-
 
 @app.route("/render-template", methods=["GET", "POST"])
 def render_graphic():
