@@ -55,11 +55,12 @@ def number_graphic(number):
     values = {}
     db = connect_mongo()
     lifemap = db.family.find_one({"phoneNumber":number})
+    data = lifemap
     # if lifemap:
         # for v in range(1,4):
         #     key = float(v)
         #     values[key]=sum(value == key for value in lifemap.values())
-    return render_template('template-lifemap.html', data=data)
+    return render_template('template-lifemap.html', dato=data)
 
     # return render_template("chart_values.html", semaforo=values, lifemap=lifemap)
 
