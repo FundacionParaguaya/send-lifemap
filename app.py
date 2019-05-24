@@ -55,8 +55,7 @@ def number_graphic(number):
     print(number)
     values = {}
     db = connect_mongo()
-    lifemap = db.family.find_one({"phoneNumber":number})
-    data = lifemap
+    data = db.family.find_one({"phoneNumber":number})
     if not data: 
         data = db.family.find_one({"phoneNumber":FALLBACK_NUMBER})
     # if lifemap:
