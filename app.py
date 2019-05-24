@@ -1,8 +1,11 @@
+import os
 from flask import Flask, request, jsonify, render_template, send_file, Response
-from connect_database import connect_mongo, get_lifemap
-from twilio_helpers import twilio_send_template, send_messages
+from connect_database import connect_mongo, get_lifemap, save_number
+from twilio_helpers import send_template, send_messages, send_pdf
 import pdfkit
 
+BASE_URL = os.getenv("BASE_URL")
+PDF_DIR="./static/pdf/"
 app = Flask(__name__)
 
 
@@ -20,9 +23,8 @@ def message_form():
 
 @app.route("/send-initial-message", methods=["POST"])
 def send_inital_message():
-    from_number = request.form["from"]
+    from_number = request.form["From"]
     return jsonify(send_template(from_number))
-
 
 @app.route("/send-reminders", methods=["POST"])
 def send_reminder():
@@ -32,20 +34,13 @@ def send_reminder():
     send_messages(indicator, message)
     return render_template("message-success.html")
 
-
 @app.route("/send-lifemap", methods=["POST"])
 def send_lifemap():
-    phone_number = request.form["from"]
-    print(phone_number)
-
-    # Save the number to our database
-    db = connect_mongo()
-    numbers = db["numbers"]
-    numbers.insert({"number":phone_number})
-
-    twilio_send_template(phone_number)
-    return "lifemap sent!"
-
+    phone_number = request.form['From']
+    save_number(phone_number)
+    # pdfnetor(phone_number)
+    lifemap = send_pdf(phone_number)
+    return jsonify("pdf successfully sent")
 
 @app.route("/render-template", methods=["GET", "POST"])
 def render_graphic():
@@ -67,11 +62,11 @@ def number_graphic(number):
 @app.route("/generate-pdf/<string:number>")
 def pdfnetor(number):
     pdf = pdfkit.from_url(
-        f"http://localhost:5000/render-template/{number}",
-        f"{number}.pdf",
+        f"{BASE_URL}render-template/{number}",
+        f"{PDF_DIR}{number}.pdf",
         options={"javascript-delay":2000})
     print(pdf,"!!!!!!!!!!!!")
-    return send_file(f"{number}.pdf")
+    return send_file(f"{PDF_DIR}{number}.pdf")
     #return jsonify(pdf)
 
 if __name__ == "__main__":
