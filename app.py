@@ -34,7 +34,7 @@ def send_reminder():
     send_messages(indicator, message)
     return render_template("message-success.html")
 
-@app.route("/send-lifemap", methods=["GET", "POST"])
+@app.route("/send-lifemap", methods=["POST"])
 def send_lifemap():
     phone_number = request.form['From']
     save_number(phone_number)
