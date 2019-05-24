@@ -51,11 +51,14 @@ def render_graphic():
 
 @app.route("/render-template/<string:number>", methods=["GET", "POST"])
 def number_graphic(number):
+    FALLBACK_NUMBER = '+595 000 000 000'
     print(number)
     values = {}
     db = connect_mongo()
     lifemap = db.family.find_one({"phoneNumber":number})
     data = lifemap
+    if not data: 
+        data = db.family.find_one({"phoneNumber":FALLBACK_NUMBER})
     # if lifemap:
         # for v in range(1,4):
         #     key = float(v)
