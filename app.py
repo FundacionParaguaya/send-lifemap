@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify, render_template, send_file, Response
 from connect_database import connect_mongo, get_lifemap, save_number
 from twilio_helpers import send_template, send_messages, send_pdf
