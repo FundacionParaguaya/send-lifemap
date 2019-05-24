@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify, render_template, send_file, Response
+from flask import Flask, request, jsonify, render_template, send_file, Response, url_for, json
 from connect_database import connect_mongo, get_lifemap, save_number
 from twilio_helpers import send_template, send_messages, send_pdf
 import pdfkit
@@ -44,7 +44,10 @@ def send_lifemap():
 
 @app.route("/render-template", methods=["GET", "POST"])
 def render_graphic():
-    return render_template("grafic.html")
+    SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+    json_url = os.path.join(SITE_ROOT, "data", "snapshot_sample.json")
+    data = json.load(open(json_url))
+    return render_template('template-lifemap.html', dato=data)
 
 @app.route("/render-template/<string:number>", methods=["GET", "POST"])
 def number_graphic(number):
@@ -52,12 +55,14 @@ def number_graphic(number):
     values = {}
     db = connect_mongo()
     lifemap = db.family.find_one({"phoneNumber":number})
-    if lifemap:
-        for v in range(1,4):
-            key = float(v)
-            values[key]=sum(value == key for value in lifemap.values())
+    data = lifemap
+    # if lifemap:
+        # for v in range(1,4):
+        #     key = float(v)
+        #     values[key]=sum(value == key for value in lifemap.values())
+    return render_template('template-lifemap.html', dato=data)
 
-    return render_template("chart_values.html", semaforo=values, lifemap=lifemap)
+    # return render_template("chart_values.html", semaforo=values, lifemap=lifemap)
 
 @app.route("/generate-pdf/<string:number>")
 def pdfnetor(number):

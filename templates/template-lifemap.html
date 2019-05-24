@@ -4,7 +4,6 @@
 <link rel="shortcut icon" href="/favicon.ico">
 <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name="theme-color" content="#000000">
-<link rel="manifest" href="/manifest.json">
 
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600|Roboto" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -412,31 +411,31 @@ body {
 	</div></div>
 		<div class="legends">
 			<div class="celda">
-				<h5 class="number-leg">0</h5>
-				<div style="width: 12px; height: 12px; position: relative;">
+				<h5 class="number-leg" id="num-green"></h5>
+				<div style="width: 12px; height: 12px; position: relative; margin-right: 10px;">
 					<div class="dot green" style="width: 12px; height: 12px;"></div>
 				</div>
 				
 				<h6 class="text-leg">Green</h6>
 			</div>
 			<div class="celda">
-				<h5 class="number-leg">50</h5>
-				<div style="width: 12px; height: 12px; position: relative;">
+				<h5 class="number-leg" id="num-yellow"></h5>
+				<div style="width: 12px; height: 12px; position: relative; margin-right: 10px;">
 					<div class="dot yellow" style="width: 12px; height: 12px;"></div>
 				</div>
 				
 				<h6 class="text-leg">Yellow</h6>
 			</div>
 			<div class="celda">
-				<h5 class="number-leg">0</h5>
-				<div style="width: 12px; height: 12px; position: relative;">
+				<h5 class="number-leg" id="num-red"></h5>
+				<div style="width: 12px; height: 12px; position: relative; margin-right: 10px;">
 					<div class="dot red" style="width: 12px; height: 12px;"></div>
 				</div>
 				<h6 class="text-leg">Red</h6>
 			</div>
 			<div class="celda">
-				<h5 class="number-leg">0</h5>
-				<div style="width: 12px; height: 12px; position: relative;">
+				<h5 class="number-leg" id="num-gray"></h5>
+				<div style="width: 12px; height: 12px; position: relative; margin-right: 10px;">
 				<div class="dot gray" style="width: 12px; height: 12px;"></div>
 				</div>
 				<h6 class="text-leg">Skipped questions</h6>
@@ -445,28 +444,59 @@ body {
 	</div>
 <!-- end a pie chart graph -->
 <div style="margin: 10px;">
-	<div>
-		<div style="width: 26px; height: 26px; position: relative;">
-			<div class="dot yellow" style="width: 26px; height: 26px;"></div>
+{% for key in dato %}
+	<div style="display:inline-flex">
+		<div style="margin:2px;">
+			{% if dato[key] == 2 %}
+			<div class="dot yellow list" style="width: 26px; height: 26px;"></div>
+			{% elif dato[key] == 1 %}
+			<div class="dot green list" style="width: 26px; height: 26px;"></div>
+			{% elif dato[key] == 3 %}
+			<div class="dot red list" style="width: 26px; height: 26px;"></div>
+			{% elif dato[key] == 0 %}
+			<div class="dot gray list" style="width: 26px; height: 26px;"></div>
+			{% endif %}
 		</div>
 	</div>
+{% endfor %}
 </div>
 <div>
 	<div>
 		<div>
-			<h6 class="text-leg">Ingreso y Empleo</h6>
+			<!--<h6 class="text-leg">Ingreso y Empleo</h6>-->
 		<div class="div-line"></div>
 		</div>
 		<div class="flex">
-			<div>
-				<center>
-					<div style="width: 60px; height: 60px; position: relative;">
-						<div class="dot yellow" style="width: 60px; height: 60px;"></div>
-					</div>
-				</center>
-				<h6 class="indicator-text">Ingresos superiores a la línea de pobreza</h6>
-			</div>
+			{% for key in dato %}
+				<div style="padding: 20px; width: 25%;">
+					<center>
+						{% if dato[key] == 2 %}
+						<div style="width: 60px; height: 60px; position: relative;">
+							<div class="dot yellow" style="width: 60px; height: 60px;"></div>
+						</div>
+						<h6 class="indicator-text">{{key}}</h6>
+						{% elif dato[key] == 1 %}
+						<div style="width: 60px; height: 60px; position: relative;">
+							<div class="dot green" style="width: 60px; height: 60px;"></div>
+						</div>
+						<h6 class="indicator-text">{{key}}</h6>
+						{% elif dato[key] == 3 %}
+						<div style="width: 60px; height: 60px; position: relative;">
+							<div class="dot red" style="width: 60px; height: 60px;"></div>
+						</div>
+						<h6 class="indicator-text">{{key}}</h6>
+						{% elif dato[key] == 0 %}
+						<div style="width: 60px; height: 60px; position: relative;">
+							<div class="dot gray" style="width: 60px; height: 60px;"></div>
+						</div>
+						<h6 class="indicator-text">{{key}}</h6>
+						{% endif %}
+					</center>
+				</div>
+			{% endfor %}
 		</div>
+
+
 	</div>
 </div>
 
@@ -474,39 +504,52 @@ body {
 </div></div></div>
 
 
-
-
 </div>
 
 
 <!-- svg pie chart with js -->
+
     <script type='text/javascript'>
+
+var green = (document.getElementsByClassName("dot green list").length)/50;
+var yellow = (document.getElementsByClassName("dot yellow list").length)/50;
+var red = (document.getElementsByClassName("dot red list").length)/50;
+var gray = (document.getElementsByClassName("dot gray list").length)/50;
+
+document.getElementsByTagName("h5")[0].innerHTML = green * 50;
+document.getElementsByTagName("h5")[1].innerHTML = yellow * 50;
+document.getElementsByTagName("h5")[2].innerHTML = red * 50;
+document.getElementsByTagName("h5")[3].innerHTML = gray * 50;
+
     var data = {
+
         size: 230,
         sectors: [
             {
-                percentage: 0.20,
-                label: 'Thing 1'
+                percentage: green,
+                label: 'green'
             },
             {
-                percentage: 0.10,
-                label: "Thing Two"
+                percentage: yellow,
+                label: "yellow"
             },
             {
-                percentage: 0.40,
-                label: "Another Thing"
+                percentage: red,
+                label: "red"
             },
             {
-                percentage: 0.30,
-                label: "Pineapple"
+                percentage: gray,
+                label: "gray"
             }
         ]
+
     }
+
 
     function calculateSectors( data ) {
         var sectors = [];
         var colors = [
-            "#61C0BF", "#DA507A", "#BB3D49", "#DB4547"
+            "#50aa47", "#f0cb17", "#e1504d", "#E6E4E2"
         ];
 
         var l = data.size / 2
