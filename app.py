@@ -3,6 +3,7 @@ from connect_database import connect_mongo, get_lifemap, save_number
 from twilio_helpers import send_template, send_messages, send_pdf
 import pdfkit
 
+BASE_URL = os.getenv("BASE_URL")
 PDF_DIR="./static/pdf/"
 app = Flask(__name__)
 
@@ -60,7 +61,7 @@ def number_graphic(number):
 @app.route("/generate-pdf/<string:number>")
 def pdfnetor(number):
     pdf = pdfkit.from_url(
-        f"http://localhost:5000/render-template/{number}",
+        f"{BASE_URL}render-template/{number}",
         f"{PDF_DIR}{number}.pdf",
         options={"javascript-delay":2000})
     print(pdf,"!!!!!!!!!!!!")
