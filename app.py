@@ -21,7 +21,7 @@ def message_form():
 
 @app.route("/send-initial-message", methods=["POST"])
 def send_inital_message():
-    from_number = request.form["from"]
+    from_number = request.form["From"]
     return jsonify(send_template(from_number))
 
 @app.route("/send-reminders", methods=["POST"])
@@ -36,7 +36,7 @@ def send_reminder():
 def send_lifemap():
     phone_number = request.form['From']
     save_number(phone_number)
-
+    pdfnetor(phone_number)
     lifemap = send_pdf(phone_number)
     return jsonify("pdf successfully sent")
 

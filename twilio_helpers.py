@@ -3,7 +3,7 @@
 import os
 from twilio.rest import Client
 from connect_database import connect_mongo
-from app import pdfnetor
+# from app import pdfnetor
 
 SID = os.getenv("SID")
 AUTH = os.getenv("AUTH")
@@ -69,7 +69,7 @@ def send_pdf(whatsapp_number):
         from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
         media_url = f"{URL}{whatsapp_number}.pdf",
         body = "Hola! Este es tu Mapa de vida",
-        to = "whatsapp:" + whatsapp_number,
+        to = whatsapp_number,
     )
 
     print("{}, {}".format(whatsapp_number, message.sid))
