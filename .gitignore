@@ -109,3 +109,6 @@ data/.DS_Store
 
 # Projects Files
 secrets.py
+
+#Editors
+.vscode/
