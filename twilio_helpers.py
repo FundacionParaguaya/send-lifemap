@@ -52,7 +52,7 @@ def send_messages(indicator, form_message):
             print(number, message.sid)
     return
 
-def twilio_send_template(whatsapp_number):
+def send_template(whatsapp_number):
     message = client.messages.create(
         from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
         media_url = LIFEMAP_IMG,
