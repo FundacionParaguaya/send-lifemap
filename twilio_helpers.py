@@ -3,9 +3,12 @@
 import os
 from twilio.rest import Client
 from connect_database import connect_mongo
+# from app import pdfnetor
 
 SID = os.getenv("SID")
 AUTH = os.getenv("AUTH")
+BASE_URL = os.getenv("BASE_URL")
+URL = f"{BASE_URL}static/pdf/"
 
 if not SID or not AUTH:
     raise Exception(
@@ -27,9 +30,9 @@ def send_messages(indicator, form_message):
     db = connect_mongo()
     numbers = db["numbers"] # collection should only contain a list objects, with nmuber filed
     # exclude _id Mongo's ObjectID field for correct jsonification
-    submitted_numbers = list(numbers.distinct("number"))
-    print(submitted_numbers)
-    for number in submitted_numbers:
+    whatsapp_numbers = list(numbers.distinct("number"))
+    print(whatsapp_numbers)
+    for number in whatsapp_numbers:
     # for numberObj in TEST_NUMBERS:
         number=str(number)
         print(number)
@@ -38,7 +41,7 @@ def send_messages(indicator, form_message):
                 from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
                 media_url = EMPANADA_IMG,
                 body = "You recevied this message because you have a red " + str(indicator) + " \n" + str(form_message),
-                to = "whatsapp:" + number,
+                to = number,
             )
 
         except Exception as e:
@@ -48,12 +51,25 @@ def send_messages(indicator, form_message):
             print(number, message.sid)
     return
 
-def twilio_send_template(whatsapp_number):
+def send_template(whatsapp_number):
     message = client.messages.create(
         from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
         media_url = LIFEMAP_IMG,
         body = "Hello, this is Poverty Stoplight. Here is your lifemap.",
-        to = "whatsapp:" + whatsapp_number,
+        to = whatsapp_number,
+    )
+
+    print("{}, {}".format(whatsapp_number, message.sid))
+
+    return
+
+def send_pdf(whatsapp_number):
+    #pdfnetor(whatsapp_number)
+    message = client.messages.create(
+        from_ = POVERTY_STOPLIGHT_WHATSAPP_NUMBER,
+        media_url = f"http://{BASE_URL}static/pdf/{whatsapp_number}.pdf",
+        body = "Hola! Este es tu Mapa de vida",
+        to = whatsapp_number,
     )
 
     print("{}, {}".format(whatsapp_number, message.sid))
