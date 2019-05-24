@@ -38,7 +38,7 @@ def send_reminder():
 def send_lifemap():
     phone_number = request.form['From']
     save_number(phone_number)
-    # pdfnetor(phone_number)
+    pdfnetor(phone_number)
     lifemap = send_pdf(phone_number)
     return jsonify("pdf successfully sent")
 
