@@ -10,6 +10,15 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
+##Install with pipenv
+Install pipenv: https://pipenv.readthedocs.io/en/latest/
+```bash
+git clone git@github.com:FundacionParaguaya/send-lifemap.git
+cd send-lifemap
+pipenv install
+pipenv shell
+```
+
 ## Other requirements
 * Create a `secrets.py` file (follow the example in `secrets.py.example`).
   * The credentials can be found at https://www.twilio.com/console.
