@@ -16,15 +16,15 @@ def save_number(phone_number):
 def get_lifemap(phone_number):
     db = connect_mongo()
     familyCol = db['family']
-    family = familyCol.find_one({'phoneNumber': phone_number}) # .Family needs to be the name of the collection where the familys are loaded
+    family = familyCol.find_one({'phoneNumber': phone_number}) # .Family needs to be the name of the collection where the families are loaded
     if family :
         print(family)
-        if 'lifeMap' in family:
-            print(family['lifeMap'])
-            # ** send_lifemap(family['lifeMap']) #this function has to be the one that sends the pdf to the WA
+        if 'lifemapPdf' in family:
+            print(family['lifemapPdf'])
+            # ** send_lifemapPdf(family['lifemapPdf']) #this function has to be the one that sends the pdf to the WA
         else:
             # ** pdf=generatepdf(family)
             # ** saves the pdf generated file in blob to save it in the db
-            familyCol.update_one({'phoneNumber': phone_number},{'$set': {'lifeMap' : 'pdf'}})
+            familyCol.update_one({'phoneNumber': phone_number}, {'$set': {'lifemapPdf' : 'pdf'}})
     else:
         return "The family is not in the database" #the function sends a message that the number is not in the database and should be checked
